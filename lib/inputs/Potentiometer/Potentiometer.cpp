@@ -18,5 +18,5 @@ const uint16_t& Potentiometer::GetRawValue() const noexcept
 
 uint8_t Potentiometer::GetPercentageValue() const noexcept
 {
-    return static_cast<uint8_t>(_currentReadVal/_highestValue);
+    return static_cast<uint8_t>((_currentReadVal * 100UL/_highestValue));
 }

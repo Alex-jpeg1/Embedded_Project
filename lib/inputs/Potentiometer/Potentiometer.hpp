@@ -5,7 +5,7 @@
 class Potentiometer
 {
     public:
-        Potentiometer(APIN PinNumber, uint16_t HighestValue = 1024);
+        Potentiometer(APIN PinNumber, uint16_t HighestValue = 1023);
         void AnalogReadData() noexcept;
         const uint16_t& GetRawValue() const noexcept;
         uint8_t GetPercentageValue() const noexcept;
