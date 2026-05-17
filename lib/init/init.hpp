@@ -9,7 +9,7 @@
     constexpr bool ImpossibleCase = false;
 #endif
 
-
+//Analogs read will be down 
 enum class VoltageReference
 {
     AREF_VREF_OFF,
@@ -54,5 +54,35 @@ class adcsra_init
         static void SetPrescaler(PrescalerSelect = PrescalerSelect::Val128);
         static void ReadData(uint16_t&); //this function reads the data from the registers
 };
+//end of setting up analog reads
 
+//start of digital outputs setting
+#ifdef DIGITAL_OUTPUT
+enum class DPIN
+{
+    D0,
+    D1,
+    D2,
+    D3,
+    D4,
+    D5,
+    D6,
+    D7,
+    D8,
+    D9,
+    D10,
+    D11,
+    D12,
+    D13
+};//the digital pins
+class digital_output
+{
+    public:
+    digital_output() = delete;
+    static void SetOutput(DPIN);
+    static void OutPut(DPIN);
+    static void DeleteSignal(DPIN);
+};
+#endif
+//end of digital outputs setting
 extern void init();
