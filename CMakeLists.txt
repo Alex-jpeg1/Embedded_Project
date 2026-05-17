@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(Arduino_Subwoofer LANGUAGES C CXX)
+project(Embedded_Project LANGUAGES C CXX)
 
 set(MCU atmega328p)
 
