@@ -1,8 +1,7 @@
 #include "init.hpp"
 #include <avr/io.h>
-#include <assert.h>
 #include <util/delay.h>
-
+#include <assert.h>
 
 
 void admux_init::init_ADMUX_MUX(APIN Pin)

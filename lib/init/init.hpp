@@ -51,7 +51,7 @@ class adcsra_init
         adcsra_init() = delete;
         static void EnableConversion(); //this function enables the adc
         static void StartConversion(); //this function is used to start a conversion and awaits for the conversion to complete
-        static void SetPrescaler(PrescalerSelect);
+        static void SetPrescaler(PrescalerSelect = PrescalerSelect::Val128);
         static void ReadData(uint16_t&); //this function reads the data from the registers
 };
 

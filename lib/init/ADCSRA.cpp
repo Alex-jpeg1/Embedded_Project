@@ -1,5 +1,6 @@
 #include "init.hpp"
 #include <avr/io.h>
+#include <assert.h>
 
 void adcsra_init::EnableConversion()
 {
@@ -31,7 +32,7 @@ void adcsra_init::SetPrescaler(PrescalerSelect prescalerVal)
             ADCSRA |= ((1<<ADPS2) | (1<<ADPS1));
         break;
         default:
-            
+            assert(ImpossibleCase<decltype(prescalerVal)> && "Cannot assign other value as the values cannot match");
         break;
     }
 }
