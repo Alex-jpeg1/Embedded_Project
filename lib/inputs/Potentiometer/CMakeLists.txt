@@ -8,3 +8,4 @@ target_sources(Potentiometers
                 BASE_DIRS .
                 FILES Potentiometer.hpp
 )
+target_link_libraries(Potentiometers PRIVATE Init)

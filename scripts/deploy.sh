@@ -6,4 +6,4 @@ if [ -z "$PORT" ]; then
     echo "Error: No USB connection found"
     exit 1
 fi
-avrdude -v -p atmega328p -c arduino -P "$PORT" -b 115200 -D -U flash:w:build/Arduino_Subwoofer.hex:i
+avrdude -v -p atmega328p -c arduino -P "$PORT" -b 115200 -D -U flash:w:build/Embedded_Project.hex:i
