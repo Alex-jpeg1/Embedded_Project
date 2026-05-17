@@ -3,18 +3,12 @@
 #include <util/delay.h>
 #include <stdint.h>
 
-#ifdef MACRO
-
-#define LED 5
-#define BUTTON 2
-#else
-constexpr uint8_t LED = 5; 
-constexpr uint8_t BUTTON = 2;
+#ifndef BAD_VALUE_ENUM
+#define BAD_VALUE_ENUM
+    template<typename t>
+    constexpr bool ImpossibleCase = false;
 #endif
 
-const uint8_t LedPin = 1<<LED;
-
-const uint8_t ButtonPin = 1<<BUTTON;
 
 enum class VoltageReference
 {
@@ -43,6 +37,22 @@ class admux_init
         admux_init() = delete;
         static void init_ADMUX_REFERENCE(VoltageReference = VoltageReference::AVCC_EXTERNAL_ARREF);
         static void init_ADMUX_MUX(APIN = APIN::A0);
+};
+
+enum class PrescalerSelect
+{
+    Val128, //this is the value that should be picked to guarantee a good frequency
+    Val64 //works aswell but for this purpose the other is better
+};
+
+class adcsra_init
+{
+    public:
+        adcsra_init() = delete;
+        static void EnableConversion(); //this function enables the adc
+        static void StartConversion(); //this function is used to start a conversion and awaits for the conversion to complete
+        static void SetPrescaler(PrescalerSelect);
+        static void ReadData(uint16_t&); //this function reads the data from the registers
 };
 
 extern void init();
