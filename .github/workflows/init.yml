@@ -1,0 +1,12 @@
+name: Bootstrap Project
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call-setup-factory:
+    uses: Alex-jpeg1/Embedded-programming-setup/.github/workflows/Setup.yml@main
+    with:
+      project_name: 'Arduino_Subwoofer'
+      language: 'cpp'
+      mcu: 'atmega328p'

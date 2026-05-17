@@ -1,0 +1,90 @@
+name: Initialize New Project
+
+on:
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: 'Project Name'
+        required: true
+        default: 'MyArduinoProject'
+      language:
+        description: "Target Language"
+        required: true
+        type: choice
+        options: [c, cpp]
+      mcu:
+        description: 'Target controller'
+        required: true
+        type: choice
+        options: [atmega328p, esp32]
+  workflow_call:
+    inputs:
+      project_name:
+        type: string
+        required: true
+      language:
+        type: string
+        required: true
+      mcu:
+        type: string
+        required: true
+
+jobs:
+  generate-enviroment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate Project Structure
+        run: |
+          PROJECT_NAME="${{ inputs.project_name || github.event.inputs.project_name }}"
+          LANGUAGE="${{ inputs.language || github.event.inputs.language }}"
+          MCU="${{ inputs.mcu || github.event.inputs.mcu }}"
+
+          mkdir -p src scripts   
+
+          cat <<EOF > src/main.$LANGUAGE
+          #include <Arduino.h>
+          int main() {
+              init();
+              while(1) { }
+              return 0;
+          }
+          EOF
+
+          cat <<EOF > CMakeLists.txt 
+          cmake_minimum_required(VERSION 3.10)
+          project($PROJECT_NAME LANGUAGES C CXX)
+          set(MCU $MCU)
+          
+          if(MCU STREQUAL "atmega328p")
+            set(CMAKE_C_FLAGS "-mmcu=\${MCU} -Os -Wall")
+            set(CMAKE_CXX_FLAGS "-mmcu=\${MCU} -Os -Wall")
+            add_definitions(-DF_CPU=16000000UL)
+          endif()
+          add_executable(\${PROJECT_NAME} src/main.$LANGUAGE)
+
+          if(MCU STREQUAL "atmega328p")
+            add_custom_command(TARGET \${PROJECT_NAME} POST_BUILD
+              COMMAND avr-objcopy -O ihex -R .eeprom \${PROJECT_NAME} \${PROJECT_NAME}.hex
+              COMMENT "Generating HEX file")
+          endif()
+          EOF
+
+          cat <<EOF > scripts/build.sh
+          #!/bin/bash
+          mkdir -p build && cd build
+          cmake ..
+          make -j\$(nproc)
+          EOF
+
+          chmod +x scripts/*.sh
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          # Evităm eroarea dacă nu sunt modificări
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Initialize project structure" && git push)
