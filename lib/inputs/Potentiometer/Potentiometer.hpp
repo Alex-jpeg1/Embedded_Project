@@ -1,4 +1,5 @@
 #pragma once
+#include "../../init/init.hpp"
 #include <stdint.h>
 
 class Potentiometer
