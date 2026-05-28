@@ -2,10 +2,10 @@ add_library(DigitalOutput)
 
 target_sources(DigitalOutput
             PRIVATE
-                DigitalOutput.cpp
+                DigitalOutput.cpp LCD.cpp
             PUBLIC 
                 FILE_SET HEADERS
                 BASE_DIRS .
-                FILES DigitalOutput.hpp
+                FILES DigitalOutput.hpp LCD.hpp
 )
 target_link_libraries(DigitalOutput PRIVATE Init)

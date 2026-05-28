@@ -1,7 +1,10 @@
 #include <avr/io.h>
 
 #define F_CPU 16000000UL
-#include "../lib/outputs/Digitals/DigitalOutput.hpp"
+#define LOW_HUMIDITY_PERC_VAL 50
+#define DANGER_HUMIDITY_PERC_VAL 25
+#define LCD8TO4
+#include "../lib/outputs/Digitals/LCD.hpp"
 #include "../lib/init/init.hpp"
 #include "../lib/inputs/Potentiometer/Potentiometer.hpp"
 
@@ -17,10 +20,10 @@ int main(void)
     {
         pot.AnalogReadData();
 
-        if(pot.GetPercentageValue() < 50)
+        if(pot.GetPercentageValue() < LOW_HUMIDITY_PERC_VAL)
         {
             warningLedHumidityLow.OutputSignal();
-            if(pot.GetPercentageValue() < 25)
+            if(pot.GetPercentageValue() < DANGER_HUMIDITY_PERC_VAL)
             {
                 WarningLedHumidityLowExtreme.OutputSignal();
             }
