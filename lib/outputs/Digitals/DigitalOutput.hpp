@@ -6,10 +6,10 @@
 
 #include "../../init/init.hpp"
 
-class Led
+class DigitalOutput
 {
     public:
-        Led(DPIN);
+        DigitalOutput(DPIN);
         void SetUPPIN();
         void OutputSignal();
         void DeleteSignal();

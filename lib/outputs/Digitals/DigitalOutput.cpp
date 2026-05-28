@@ -184,16 +184,16 @@ void digital_output::DeleteSignal(DPIN pin)
 }
 
 
-Led::Led(DPIN pin):_pin(pin){}
-void Led::SetUPPIN()
+DigitalOutput::DigitalOutput(DPIN pin):_pin(pin){}
+void DigitalOutput::SetUPPIN()
 {
     digital_output::SetOutput(_pin);
 }
-void Led::OutputSignal()
+void DigitalOutput::OutputSignal()
 {
     digital_output::OutPut(_pin);
 }
-void Led::DeleteSignal()
+void DigitalOutput::DeleteSignal()
 {
     digital_output::DeleteSignal(_pin);
 }

@@ -9,8 +9,8 @@
 int main(void)
 {
     Potentiometer pot(APIN::A0);
-    Led warningLedHumidityLow(DPIN::D2);
-    Led WarningLedHumidityLowExtreme(DPIN::D3);
+    DigitalOutput warningLedHumidityLow(DPIN::D2);
+    DigitalOutput WarningLedHumidityLowExtreme(DPIN::D3);
     init();
 
     while(1)
