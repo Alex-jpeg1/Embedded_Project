@@ -3,7 +3,8 @@
 #include <stdint.h>
 
 #define LOW_NIBBLE_EXTRACTOR 0x0F
-
+#define LCD_SIZE 0x40
+#define SET_DDRAM_ADDRESS 0x80
 #define LCD8TO4
 namespace LCD4BitConfig{
 #ifdef LCD8TO4
@@ -18,7 +19,7 @@ class LCD8To4BitsCommand
 class LCD8To4Commands
 {
     public:
-        inline static const LCD8To4BitsCommand WakeUpCommands[] = {0x33, 0x32};
+        inline static const LCD8To4BitsCommand WakeUpCommands[] = {0x33, 0x32, 0x28, 0x0C, 0x06, 0x01};
 };
 class LCD8To4Bits
 {

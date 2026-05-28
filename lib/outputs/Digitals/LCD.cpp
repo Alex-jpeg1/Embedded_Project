@@ -8,7 +8,8 @@ LCD4BitConfig::LCD8To4Bits::LCD8To4Bits(DPIN RSPin, DPIN EnablePin, DPIN data0, 
      _data2(data2),
      _data3(data3)
 {
-    for(int i=0;i<2;i++)
+    _delay_ms(1000);
+    for(int i=0;i<6;i++)
     {
         SendCommand(LCD8To4Commands::WakeUpCommands[i]);
     }
@@ -17,22 +18,26 @@ LCD4BitConfig::LCD8To4Bits::LCD8To4Bits(DPIN RSPin, DPIN EnablePin, DPIN data0, 
 void LCD4BitConfig::LCD8To4Bits::SendCommand(LCD8To4BitsCommand commandVal)
 {
     _RSPin.DeleteSignal();
-
     uint8_t highNibble = commandVal._val>>4;
     uint8_t lowNibble = commandVal._val & LOW_NIBBLE_EXTRACTOR;
 
     SendNibble(highNibble);
     SendNibble(lowNibble);
+    if(commandVal._val == 0x01) {
+        _delay_ms(2);
+    } else {
+        _delay_us(50);
+    }
 }
 void LCD4BitConfig::LCD8To4Bits::SendMessage(uint8_t row, uint8_t col, const char* Message)
 {
     uint8_t ddram_address = col; 
     
     if (row == 1) {
-        ddram_address += 0x40; 
+        ddram_address += LCD_SIZE; 
     }
 
-    SendCommand(LCD8To4BitsCommand(0x80 | ddram_address));
+    SendCommand(LCD8To4BitsCommand(SET_DDRAM_ADDRESS | ddram_address));
     
     _RSPin.OutputSignal();
 
@@ -47,7 +52,7 @@ void LCD4BitConfig::LCD8To4Bits::SendMessage(uint8_t row, uint8_t col, const cha
         SendNibble(lowNibble);
         
         ++Message;
-        
+        _delay_us(50);
     }
 }
 void LCD4BitConfig::LCD8To4Bits::SendNibble(uint8_t nibbleVal)

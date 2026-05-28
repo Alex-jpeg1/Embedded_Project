@@ -184,7 +184,7 @@ void digital_output::DeleteSignal(DPIN pin)
 }
 
 
-DigitalOutput::DigitalOutput(DPIN pin):_pin(pin){}
+DigitalOutput::DigitalOutput(DPIN pin):_pin(pin){SetUPPIN();}
 void DigitalOutput::SetUPPIN()
 {
     digital_output::SetOutput(_pin);
