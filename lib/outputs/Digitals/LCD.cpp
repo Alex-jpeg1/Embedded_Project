@@ -1,5 +1,7 @@
 #include "LCD.hpp"
 #include <util/delay.h>
+
+#ifdef LCD8TO4
 LCD4BitConfig::LCD8To4Bits::LCD8To4Bits(DPIN RSPin, DPIN EnablePin, DPIN data0, DPIN data1, DPIN data2, DPIN data3)
     :_RSPin(RSPin),
      _EnablePin(EnablePin),
@@ -23,7 +25,7 @@ void LCD4BitConfig::LCD8To4Bits::SendCommand(LCD8To4BitsCommand commandVal)
 
     SendNibble(highNibble);
     SendNibble(lowNibble);
-    if(commandVal._val == 0x01) {
+    if(commandVal._val == LCD_CLEAR) {
         _delay_ms(2);
     } else {
         _delay_us(50);
@@ -69,3 +71,4 @@ void LCD4BitConfig::LCD8To4Bits::SendNibble(uint8_t nibbleVal)
     _EnablePin.DeleteSignal();
 }
 
+#endif

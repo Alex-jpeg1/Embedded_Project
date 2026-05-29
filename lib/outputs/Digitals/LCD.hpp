@@ -5,7 +5,7 @@
 #define LOW_NIBBLE_EXTRACTOR 0x0F
 #define LCD_SIZE 0x40
 #define SET_DDRAM_ADDRESS 0x80
-#define LCD8TO4
+#define LCD_CLEAR 0x01
 namespace LCD4BitConfig{
 #ifdef LCD8TO4
 

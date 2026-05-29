@@ -1,10 +1,11 @@
 #include <avr/io.h>
 #include <util/delay.h>
-
 #define F_CPU 16000000UL
 #define LOW_HUMIDITY_PERC_VAL 50
 #define DANGER_HUMIDITY_PERC_VAL 25
 #define LCD8TO4
+#define SERIAL_PORT 9600
+#include "../lib/outputs/Digitals/SerialTransmit.hpp"
 #include "../lib/outputs/Digitals/LCD.hpp"
 //#include "../lib/outputs/Digitals/DigitalOutput.hpp"
 #include "../lib/init/init.hpp"
@@ -30,6 +31,7 @@ int main(void)
     DigitalOutput warningLedHumidityLow(DPIN::D8);
     DigitalOutput WarningLedHumidityLowExtreme(DPIN::D9);
     LCD4BitConfig::LCD8To4Bits humidityLCD(DPIN::D5,DPIN:: D4, DPIN::D3, DPIN::D2, DPIN::D11, DPIN::D10);
+    USART_Init(103);
     init();
     //humidityLCD.SendMessage(0, 0, "HUMIDITY");
 
@@ -55,6 +57,7 @@ int main(void)
             warningLedHumidityLow.DeleteSignal();
         }
         humidityLCD.SendMessage(0, 0, valuesToRepresent[humidityValue]);
+        USART_Print(valuesToRepresent[humidityValue]);
         _delay_ms(100);
     }
     return 0;

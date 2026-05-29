@@ -6,6 +6,6 @@ target_sources(DigitalOutput
             PUBLIC 
                 FILE_SET HEADERS
                 BASE_DIRS .
-                FILES DigitalOutput.hpp LCD.hpp
+                FILES DigitalOutput.hpp LCD.hpp SerialTransmit.hpp
 )
 target_link_libraries(DigitalOutput PRIVATE Init)
