@@ -6,6 +6,7 @@
 #define LCD_SIZE 0x40
 #define SET_DDRAM_ADDRESS 0x80
 #define LCD_CLEAR 0x01
+#define LCD8TO4
 namespace LCD4BitConfig{
 #ifdef LCD8TO4
 

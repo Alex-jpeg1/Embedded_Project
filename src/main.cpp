@@ -3,7 +3,6 @@
 #define F_CPU 16000000UL
 #define LOW_HUMIDITY_PERC_VAL 50
 #define DANGER_HUMIDITY_PERC_VAL 25
-#define LCD8TO4
 #define SERIAL_PORT 9600
 #include "../lib/outputs/Digitals/SerialTransmit.hpp"
 #include "../lib/outputs/Digitals/LCD.hpp"

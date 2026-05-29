@@ -10,6 +10,7 @@ pkgs.mkShell {
     pkgs.avrdude
     avrToolchain.gcc 
     pkgs.pkgsCross.avr.libcCross
+    pkgs.screen
   ];
 
   shellHook = ''
